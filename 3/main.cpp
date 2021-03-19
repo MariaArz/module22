@@ -8,17 +8,23 @@ int main() {
     std::string date;
     int money, max=0;
     int sum=0;
+    std::cout<<"Input way of file what you need\n";
+    std::string way;
+    std::cin>>way;
     std::fstream smet;
-    smet.open("C:\\text\\smet.txt");
-    while (!smet.eof()){
-        smet >> name >> soname >> money >> date;
-        sum+=money;
-        if (money >= max){
-            max=money;
-            s=name+" "+soname;
+    smet.open(way);
+    if (smet.is_open()){
+        while (!smet.eof()){
+            smet >> name >> soname >> money >> date;
+            sum+=money;
+            if (money >= max){
+                max=money;
+                s=name+" "+soname;
+            }
         }
+        std::cout<<"sum = "<<sum<<std::endl;
+        std::cout<<"max money: "<<max<<" of "<<s;
     }
+    else std::cout<<"file is not open";
     smet.close();
-    std::cout<<"sum = "<<sum<<std::endl;
-    std::cout<<"max money: "<<max<<" of "<<s;
 }

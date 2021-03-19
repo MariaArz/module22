@@ -1,11 +1,14 @@
 #include <iostream>
 #include <fstream>
-std::string substr(char bite[4]){
+#include <string>
+
+bool substr(char bite[4]){
     if (bite[0]==-119){
-        if(bite[1]=='P' && bite[2]=='N' && bite[3]=='G') return "true";
+        if(bite[1]=='P' && bite[2]=='N' && bite[3]=='G') return true;
+        else return false;
     }
     else {
-        return "false";
+        return false;
     }
 }
 
@@ -15,7 +18,13 @@ int main() {
     std::cin>>way;
     char bite[4];
     picture.open(way, std::ios::binary);
-    picture.read(bite,4);
-    std::cout<<substr(bite);
+    if (picture.is_open()){
+        if (way.substr(way.find_last_of(".") + 1) == "png"){
+            picture.read(bite,4);
+            std::cout<<std::boolalpha << substr(bite);
+        }
+        else std::cout<< std::boolalpha << false;
+    }
+    else std::cout<<"file is not open";
     picture.close();
 }

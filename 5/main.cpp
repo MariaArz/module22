@@ -16,9 +16,9 @@ bool relation(std::vector<std::string> buff, std::vector<std::string>answer){
 int main() {
     int n, sector=1, gamer=0, viewer=0;
     std::string way, answ;
-
     std::vector<std::string>buff;
     std::ifstream Q,A;
+    std::cout<<"Game start. Twist the roll\n";
     char question[100];
     while (gamer!=6 && viewer!=6){
         std::cout<<"Input sector ";
@@ -27,21 +27,33 @@ int main() {
         if (sector > 13){
             sector=sector-13;
         }
-        way="C:\\text\\Q"+std::to_string(sector)+".txt";
+        way="..\\Q"+std::to_string(sector)+".txt";
         Q.open(way,std::ios::binary);
-        while (!Q.eof()){
-            Q.read(question,sizeof(question));
-            int n=Q.gcount();
-            question[n]=0;
-            std::cout<<question;
+        if (Q.is_open()){
+            while (!Q.eof()){
+                Q.read(question,sizeof(question));
+                int n=Q.gcount();
+                question[n]=0;
+                std::cout<<question;
+            }
+        }
+        else {
+            std::cout<<"file is not open\n";
+            continue;
         }
         Q.close();
-        way="C:\\text\\A"+std::to_string(sector)+".txt";
+        way="..\\A"+std::to_string(sector)+".txt";
         A.open(way);
-        while (!A.eof()){
-            std::string ans;
-            A>>ans;
-            buff.push_back(ans);
+        if (A.is_open()){
+            while (!A.eof()){
+                std::string ans;
+                A>>ans;
+                buff.push_back(ans);
+            }
+        }
+        else {
+            std::cout<<"file is not open\n";
+            continue;
         }
         std::cout<<"\nInput your answer(enter '0' in the end) ";
         std::vector<std::string>answer;
